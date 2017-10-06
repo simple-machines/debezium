@@ -282,7 +282,7 @@ public class RecordsSnapshotProducer extends RecordsProducer {
         assert tableSchema != null;
         Object key = tableSchema.keyFromColumnData(rowData);
         Struct value = tableSchema.valueFromColumnData(rowData);
-        if (key == null || value == null) {
+        if (value == null) {
             return;
         }
         Schema keySchema = tableSchema.keySchema();

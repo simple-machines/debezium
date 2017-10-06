@@ -223,9 +223,6 @@ public class RecordsStreamProducer extends RecordsProducer {
         if (tableSchema == null) {
             return;
         }
-        if (tableSchema.keySchema() == null) {
-            logger.warn("ignoring message for table '{}' because it does not have a primary key defined", tableId);
-        }
 
         PgProto.Op operation = message.getOp();
         switch (operation) {
@@ -260,7 +257,7 @@ public class RecordsStreamProducer extends RecordsProducer {
         assert tableSchema != null;
         Object key = tableSchema.keyFromColumnData(rowData);
         Struct value = tableSchema.valueFromColumnData(rowData);
-        if (key == null || value == null) {
+        if (value == null) {
             return;
         }
         Schema keySchema = tableSchema.keySchema();
